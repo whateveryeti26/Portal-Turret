@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 from pydub.playback import play
 from sense_hat import SenseHat
+import random
 
 sense = SenseHat()
 sense.clear()
@@ -18,8 +19,13 @@ while True:
 	y = raw['y']
 	z = raw['z']
 	
-	x = float (round(x,1))
-	y = float (round(y,1))
+	x = float (round(x,1)) # vertical
+	y = float (round(y,1))	
 	z = float (round(z,1))
 	print(f"x={x}, y={y},z={z}")
-	
+	if ((x < 0.8)and(y<0.3)and(z<0.3)):
+		nr = random.randint(1,10)
+		str = "/home/mees/Portal-Turret/Portal Turret Voice Lines/Turret Turret Pickup {}.mp3"
+		VL = AudioSegment.from_file(str.format(nr))
+		print(VL)
+		play(VL)
